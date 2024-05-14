@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckListApp.DB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace CheckListApp
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            DB.ChecklistSystemContext myContext = new DB.ChecklistSystemContext();
+            var participant = myContext.Participants;
+            test.Text = participant.Select(x => x.Name).FirstOrDefault().ToString();
         }
     }
 }
